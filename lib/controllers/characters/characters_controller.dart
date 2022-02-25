@@ -7,16 +7,18 @@ part 'characters_controller.g.dart';
 class CharactersController = CharactersControllerBase with _$CharactersController;
 
 abstract class CharactersControllerBase with Store {
-  final NetworkService httpClient = NetworkService();
+  final httpClient = NetworkService();
 
   @observable
-  List<ResultsOne> listAllFuture = [];
+  List<AllCharacters> listAllFuture = [];
 
   @action
-  Future<List<ResultsOne>> fetchAll() async {
-    await httpClient
-        .getData('https://rickandmortyapi.com/api/character')
-        .then((results) => listAllFuture.addAll(results));
+  Future<List<AllCharacters>> fetchAll() async {
+    var response = await httpClient.getData();
+    // await httpClient
+    //     .getData('')
+    //     .then((results) => listAllFuture.addAll(results));
+    listAllFuture = response;
     return listAllFuture;
   }
 

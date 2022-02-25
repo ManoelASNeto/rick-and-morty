@@ -13,13 +13,13 @@ mixin _$CharactersController on CharactersControllerBase, Store {
       Atom(name: 'CharactersControllerBase.listAllFuture');
 
   @override
-  List<ResultsOne> get listAllFuture {
+  List<AllCharacters> get listAllFuture {
     _$listAllFutureAtom.reportRead();
     return super.listAllFuture;
   }
 
   @override
-  set listAllFuture(List<ResultsOne> value) {
+  set listAllFuture(List<AllCharacters> value) {
     _$listAllFutureAtom.reportWrite(value, super.listAllFuture, () {
       super.listAllFuture = value;
     });
@@ -29,7 +29,7 @@ mixin _$CharactersController on CharactersControllerBase, Store {
       AsyncAction('CharactersControllerBase.fetchAll');
 
   @override
-  Future<List<ResultsOne>> fetchAll() {
+  Future<List<AllCharacters>> fetchAll() {
     return _$fetchAllAsyncAction.run(() => super.fetchAll());
   }
 

@@ -4,7 +4,7 @@ class Results {
   Results({this.results});
 }
 
-class ResultsOne {
+class AllCharacters {
   int? id;
   String? name;
   String? status;
@@ -16,7 +16,7 @@ class ResultsOne {
   String? url;
   String? created;
 
-  ResultsOne(
+  AllCharacters(
       {this.id, this.name, this.status, this.species, this.type, this.gender, this.image, this.url, this.created});
 
   @override
@@ -32,7 +32,7 @@ class ResultsOne {
         created,
       ];
 
-  factory ResultsOne.fromJson(Map<String, dynamic> json) => ResultsOne(
+  factory AllCharacters.fromJson(Map<String, dynamic> json) => AllCharacters(
         id: json['id'],
         name: json['name'],
         status: json['status'],
