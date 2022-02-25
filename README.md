@@ -1,2 +1,5 @@
 # rick-and-morty
-App de personagens do Rick e Morty com a estrutura MVC e Mobx
+App de personagens do Rick e Morty com a estrutura MVC e Mobx.
+
+
+IN PROGRESS
