@@ -1,12 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
-import 'package:rick_and_morty_mobx/controllers/characters/characters_controller.dart';
-import 'package:rick_and_morty_mobx/models/characters/results_model.dart';
-import 'package:rick_and_morty_mobx/views/characters/layouts/info_character.dart';
-import 'package:rick_and_morty_mobx/views/characters/layouts/second_view.dart';
-import 'package:rick_and_morty_mobx/views/characters/widgets/vertical_card.dart';
+import 'package:rick_and_morty_mobx/views/characters/widgets/custom_inkwell.dart';
+
+import '../../../controllers/characters/characters_controller.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -40,25 +36,24 @@ class _HomeViewState extends State<HomeView> {
           decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                  'images/fundo.jpg',
+                  'images/backgroundone.png',
                 ),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 opacity: 0.8),
           ),
           child: Observer(
             builder: (BuildContext context) {
               var characters = controller.listAllFuture;
-              return ListView.builder(
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                 itemCount: characters.length,
                 itemBuilder: (_, index) {
                   final list = characters[index];
-                  return Column(
-                    children: [
-                      Text(list.id.toString()),
-                      Text(list.name ?? ''),
-                      Text(list.gender ?? ''),
-                      Text(list.type ?? ''),
-                    ],
+                  return CustomInkwell(
+                    image: list.image ?? 'Sem Imagem',
+                    name: list.name ?? 'Sem nome',
+                    id: list.id ?? 0,
+                    onTap: () {},
                   );
                 },
               );
