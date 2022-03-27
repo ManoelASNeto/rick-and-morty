@@ -15,21 +15,23 @@ class CustomInkwell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            image,
-            width: 150,
-            height: 150,
-            fit: BoxFit.fill,
+          Flexible(
+            child: Image.network(
+              image,
+              width: 200,
+              height: 200,
+              fit: BoxFit.fill,
+            ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text('#$id -$name')
+          Text(
+            '#$id -$name',
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );
