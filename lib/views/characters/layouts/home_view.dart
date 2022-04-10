@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:rick_and_morty_mobx/views/characters/widgets/custom_inkwell.dart';
 
 import '../../../controllers/characters/characters_controller.dart';
@@ -12,18 +11,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final CharactersController controller = CharactersController();
-  // List<AllCharacters> characters = [];
+  late CharactersController controller;
 
   @override
   void initState() {
     super.initState();
     controller.fetchAll();
-  }
-
-  getAll() async {
-    await controller.fetchAll();
-    // characters.addAll(controller.listAllFuture);
   }
 
   @override
@@ -34,7 +27,6 @@ class _HomeViewState extends State<HomeView> {
         child: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(
@@ -49,16 +41,17 @@ class _HomeViewState extends State<HomeView> {
                   height: 40,
                 ),
                 GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                  itemCount: controller.listAllFuture.length,
+                  itemCount: controller.data?.results?.length,
                   itemBuilder: (_, index) {
-                    final list = controller.listAllFuture[index];
+                    final list = controller.data?.results?[index];
                     return CustomInkwell(
-                      image: list.image ?? 'Sem Imagem',
-                      name: list.name ?? 'Sem nome',
-                      id: list.id ?? 0,
+                      image:
+                          list?.image ?? 'https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg',
+                      name: list?.name ?? 'Sem nome',
+                      id: list?.id ?? 0,
                       onTap: () {},
                     );
                   },
@@ -72,14 +65,18 @@ class _HomeViewState extends State<HomeView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // controller.prevPage(controller.data?.info?.prev);
+                        },
                         child: const Text(
                           'Anterior',
                           style: TextStyle(color: Colors.black, fontSize: 25),
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //controller.nextPage(controller.data?.info?.next);
+                        },
                         child: const Text(
                           'Proxima',
                           style: TextStyle(color: Colors.black, fontSize: 25),
