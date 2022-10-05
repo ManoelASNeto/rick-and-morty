@@ -32,14 +32,14 @@ abstract class _CharactersControllerBase with Store {
   }
 
   @action
-  Future<Response?> nextPage(String? url) async {
+  Future<void> nextPage(String? url) async {
     _state = CharactersStatus.loading;
     response = await _networkService.nextPage(url);
     _state = CharactersStatus.ready;
   }
 
   @action
-  Future<Response?> prevPage(String? url) async {
+  Future<void> prevPage(String? url) async {
     _state = CharactersStatus.loading;
     response = await _networkService.prevPage(url);
     _state = CharactersStatus.ready;

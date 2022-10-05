@@ -61,7 +61,7 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
       AsyncAction('_CharactersControllerBase.nextPage', context: context);
 
   @override
-  Future<Response?> nextPage(String? url) {
+  Future<void> nextPage(String? url) {
     return _$nextPageAsyncAction.run(() => super.nextPage(url));
   }
 
@@ -69,7 +69,7 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
       AsyncAction('_CharactersControllerBase.prevPage', context: context);
 
   @override
-  Future<Response?> prevPage(String? url) {
+  Future<void> prevPage(String? url) {
     return _$prevPageAsyncAction.run(() => super.prevPage(url));
   }
 

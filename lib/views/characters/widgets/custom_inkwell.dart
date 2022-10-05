@@ -31,6 +31,8 @@ class CustomInkwell extends StatelessWidget {
           Text(
             '#$id -$name',
             textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),
           )
         ],
       ),

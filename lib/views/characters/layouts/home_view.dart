@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                'images/backgroundOne.png',
+                'images/background.jpeg',
               ),
               fit: BoxFit.fill,
               opacity: 0.8),
@@ -73,8 +73,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   itemCount: char?.results?.length,
                   itemBuilder: (_, index) {
-                    final list =
-                        char?.results?[index]; //controller.response.[index];
+                    final list = char?.results?[index];
                     return CustomInkwell(
                       image: list?.image ??
                           'https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg',
@@ -101,7 +100,10 @@ class _HomeViewState extends State<HomeView> {
                         },
                         child: const Text(
                           'Anterior',
-                          style: TextStyle(color: Colors.black, fontSize: 25),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                          ),
                         ),
                       ),
                     ),
@@ -111,12 +113,15 @@ class _HomeViewState extends State<HomeView> {
                       },
                       child: const Text(
                         'Proxima',
-                        style: TextStyle(color: Colors.black, fontSize: 25),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

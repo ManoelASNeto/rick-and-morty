@@ -18,25 +18,16 @@ class NetworkService {
     }
   }
 
-  /*Future<List<Response>> getChar() async {
-    try {
-      final resp = await client.get(allChar);
-      final data = (jsonDecode(resp.body) as List)
-          .map((e) => Response.fromJson(e))
-          .toList();
-      return data;
-    } catch (e) {
-      debugPrint(e.toString());
-      rethrow;
-    }
-  }*/
-
   Future<Response> nextPage(String? url) async {
-    final response = await http
-        .get(Uri.parse(url ?? 'https://rickandmortyapi.com/api/character'));
+    final response = await http.get(
+      Uri.parse(url ?? 'https://rickandmortyapi.com/api/character'),
+    );
     if (response.statusCode == 200) {
-      final next =
-          Response.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      final next = Response.fromJson(
+        jsonDecode(
+          utf8.decode(response.bodyBytes),
+        ),
+      );
       return next;
     } else {
       throw Exception();
@@ -44,11 +35,15 @@ class NetworkService {
   }
 
   Future<Response> prevPage(String? url) async {
-    final response = await http
-        .get(Uri.parse(url ?? 'https://rickandmortyapi.com/api/character'));
+    final response = await http.get(
+      Uri.parse(url ?? 'https://rickandmortyapi.com/api/character'),
+    );
     if (response.statusCode == 200) {
-      final prev =
-          Response.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      final prev = Response.fromJson(
+        jsonDecode(
+          utf8.decode(response.bodyBytes),
+        ),
+      );
       return prev;
     } else {
       throw Exception();
