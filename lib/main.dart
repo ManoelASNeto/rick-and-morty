@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_mobx/injection_conatiner.dart' as di;
+import 'package:rick_and_morty_mobx/injection_container.dart' as di;
 import 'package:rick_and_morty_mobx/views/characters/layouts/home_view.dart';
 
 void main() async {

@@ -7,6 +7,8 @@ part 'characters_controller.g.dart';
 class CharactersController = _CharactersControllerBase
     with _$CharactersController;
 
+enum CharactersStatus { initial, loading, ready }
+
 abstract class _CharactersControllerBase with Store {
   _CharactersControllerBase(NetworkService networkService)
       : _networkService = networkService;
@@ -17,27 +19,29 @@ abstract class _CharactersControllerBase with Store {
   Response? response;
 
   @observable
-  bool isLoading = false;
+  CharactersStatus _state = CharactersStatus.initial;
+
+  @computed
+  CharactersStatus get currentState => _state;
 
   @action
-  Future getChar() async {
-    isLoading = true;
-    final loadChar = await _networkService.charactersList();
-    response = loadChar;
-    return response;
+  Future<void> getChar() async {
+    _state = CharactersStatus.loading;
+    response = await _networkService.charactersList();
+    _state = CharactersStatus.ready;
   }
 
-  /* @action
+  @action
   Future<Response?> nextPage(String? url) async {
-    var data = await httpClient.nextPage(url);
-    response = data;
-    return response;
+    _state = CharactersStatus.loading;
+    response = await _networkService.nextPage(url);
+    _state = CharactersStatus.ready;
   }
 
   @action
   Future<Response?> prevPage(String? url) async {
-    var data = await httpClient.prevPage(url);
-    response = data;
-    return response;
-  }*/
+    _state = CharactersStatus.loading;
+    response = await _networkService.prevPage(url);
+    _state = CharactersStatus.ready;
+  }
 }

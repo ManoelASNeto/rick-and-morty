@@ -4,10 +4,10 @@ import 'package:rick_and_morty_mobx/models/response_model.dart';
 
 class NetworkService {
   final client = http.Client();
-  static const url = 'https://rickandmortyapi.com/api/character';
-  final allChar = Uri.parse(url);
 
   Future<Response> charactersList() async {
+    var url = 'https://rickandmortyapi.com/api/character';
+    var allChar = Uri.parse(url);
     final response = await client.get(allChar);
     switch (response.statusCode) {
       case 200:
@@ -31,7 +31,7 @@ class NetworkService {
     }
   }*/
 
-  /*Future<Response> nextPage(String? url) async {
+  Future<Response> nextPage(String? url) async {
     final response = await http
         .get(Uri.parse(url ?? 'https://rickandmortyapi.com/api/character'));
     if (response.statusCode == 200) {
@@ -53,5 +53,5 @@ class NetworkService {
     } else {
       throw Exception();
     }
-  }*/
+  }
 }

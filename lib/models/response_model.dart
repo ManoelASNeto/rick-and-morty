@@ -11,12 +11,8 @@ class Response {
   });
 
   Response.fromJson(Map<String, dynamic> json) {
-    info = json['info'] != null ? Info.fromJson(json['info']) : null;
-    if (json['results'] != null) {
-      results = <Characters>[];
-      json['results'].forEach((v) {
-        results!.add(Characters.fromJson(v));
-      });
-    }
+    info = Info.fromJson(json['info']);
+    results =
+        List.from(json['results']).map((e) => Characters.fromJson(e)).toList();
   }
 }
