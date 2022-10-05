@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_mobx/views/characters/widgets/custom_inkwell.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../controllers/characters/characters_controller.dart';
+import '../../../injection_conatiner.dart';
+import '../widgets/custom_inkwell.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -11,13 +13,18 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  late CharactersController controller;
+  final _charactersController = getIt.get<CharactersController>();
 
   @override
   void initState() {
+    _charactersController.getChar();
+
     super.initState();
-    controller.fetchAll();
   }
+
+  /* Future<void> getChar() async {
+    
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +34,7 @@ class _HomeViewState extends State<HomeView> {
         child: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(
@@ -40,21 +48,27 @@ class _HomeViewState extends State<HomeView> {
                 const SizedBox(
                   height: 40,
                 ),
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                  itemCount: controller.data?.results?.length,
-                  itemBuilder: (_, index) {
-                    final list = controller.data?.results?[index];
-                    return CustomInkwell(
-                      image:
-                          list?.image ?? 'https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg',
-                      name: list?.name ?? 'Sem nome',
-                      id: list?.id ?? 0,
-                      onTap: () {},
-                    );
-                  },
+                Observer(
+                  builder: (_) => GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3),
+                    itemCount: _charactersController.response?.results?.length,
+                    itemBuilder: (_, index) {
+                      final list = _charactersController.response
+                          ?.results?[index]; //controller.response.[index];
+                      return CustomInkwell(
+                        image: list?.name ??
+                            ''
+                                'https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg',
+                        name: list?.name ?? 'Sem nome',
+                        id: list?.id ?? 0,
+                        onTap: () {},
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(
                   height: 15,

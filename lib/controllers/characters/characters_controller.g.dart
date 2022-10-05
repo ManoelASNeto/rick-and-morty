@@ -6,52 +6,54 @@ part of 'characters_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$CharactersController on CharactersControllerBase, Store {
-  final _$dataAtom = Atom(name: 'CharactersControllerBase.data');
+mixin _$CharactersController on _CharactersControllerBase, Store {
+  late final _$responseAtom =
+      Atom(name: '_CharactersControllerBase.response', context: context);
 
   @override
-  Response? get data {
-    _$dataAtom.reportRead();
-    return super.data;
+  Response? get response {
+    _$responseAtom.reportRead();
+    return super.response;
   }
 
   @override
-  set data(Response? value) {
-    _$dataAtom.reportWrite(value, super.data, () {
-      super.data = value;
+  set response(Response? value) {
+    _$responseAtom.reportWrite(value, super.response, () {
+      super.response = value;
     });
   }
 
-  final _$fetchAllAsyncAction =
-      AsyncAction('CharactersControllerBase.fetchAll');
+  late final _$isLoadingAtom =
+      Atom(name: '_CharactersControllerBase.isLoading', context: context);
 
   @override
-  Future<Response?> fetchAll() {
-    return _$fetchAllAsyncAction.run(() => super.fetchAll());
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
   }
 
-  final _$nextPageAsyncAction =
-      AsyncAction('CharactersControllerBase.nextPage');
-
   @override
-  Future<Response?> nextPage(String? url) {
-    return _$nextPageAsyncAction.run(() => super.nextPage(url));
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
   }
 
-  final _$prevPageAsyncAction =
-      AsyncAction('CharactersControllerBase.prevPage');
+  late final _$getCharAsyncAction =
+      AsyncAction('_CharactersControllerBase.getChar', context: context);
 
   @override
-  Future<Response?> prevPage(String? url) {
-    return _$prevPageAsyncAction.run(() => super.prevPage(url));
+  Future<dynamic> getChar() {
+    return _$getCharAsyncAction.run(() => super.getChar());
   }
 
   @override
   String toString() {
     return '''
-data: ${data}
+response: ${response},
+isLoading: ${isLoading}
     ''';
   }
 }

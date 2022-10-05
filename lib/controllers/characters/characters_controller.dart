@@ -4,32 +4,40 @@ import 'package:rick_and_morty_mobx/models/response_model.dart';
 
 part 'characters_controller.g.dart';
 
-class CharactersController = CharactersControllerBase with _$CharactersController;
+class CharactersController = _CharactersControllerBase
+    with _$CharactersController;
 
-abstract class CharactersControllerBase with Store {
-  final httpClient = NetworkService();
+abstract class _CharactersControllerBase with Store {
+  _CharactersControllerBase(NetworkService networkService)
+      : _networkService = networkService;
+
+  final NetworkService _networkService;
 
   @observable
-  Response? data;
+  Response? response;
+
+  @observable
+  bool isLoading = false;
 
   @action
-  Future<Response?> fetchAll() async {
-    var response = await httpClient.getData();
-    data = response;
-    return data;
+  Future getChar() async {
+    isLoading = true;
+    final loadChar = await _networkService.charactersList();
+    response = loadChar;
+    return response;
   }
 
-  @action
+  /* @action
   Future<Response?> nextPage(String? url) async {
-    var response = await httpClient.nextPage(url);
-    data = response;
-    return data;
+    var data = await httpClient.nextPage(url);
+    response = data;
+    return response;
   }
 
   @action
   Future<Response?> prevPage(String? url) async {
-    var response = await httpClient.prevPage(url);
-    data = response;
-    return data;
-  }
+    var data = await httpClient.prevPage(url);
+    response = data;
+    return response;
+  }*/
 }
