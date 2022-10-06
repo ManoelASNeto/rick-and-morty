@@ -49,6 +49,22 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
     });
   }
 
+  late final _$pageAtom =
+      Atom(name: '_CharactersControllerBase.page', context: context);
+
+  @override
+  int get page {
+    _$pageAtom.reportRead();
+    return super.page;
+  }
+
+  @override
+  set page(int value) {
+    _$pageAtom.reportWrite(value, super.page, () {
+      super.page = value;
+    });
+  }
+
   late final _$getCharAsyncAction =
       AsyncAction('_CharactersControllerBase.getChar', context: context);
 
@@ -73,10 +89,36 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
     return _$prevPageAsyncAction.run(() => super.prevPage(url));
   }
 
+  late final _$_CharactersControllerBaseActionController =
+      ActionController(name: '_CharactersControllerBase', context: context);
+
+  @override
+  void increment() {
+    final _$actionInfo = _$_CharactersControllerBaseActionController
+        .startAction(name: '_CharactersControllerBase.increment');
+    try {
+      return super.increment();
+    } finally {
+      _$_CharactersControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void decrement() {
+    final _$actionInfo = _$_CharactersControllerBaseActionController
+        .startAction(name: '_CharactersControllerBase.decrement');
+    try {
+      return super.decrement();
+    } finally {
+      _$_CharactersControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 response: ${response},
+page: ${page},
 currentState: ${currentState}
     ''';
   }

@@ -21,6 +21,9 @@ abstract class _CharactersControllerBase with Store {
   @observable
   CharactersStatus _state = CharactersStatus.initial;
 
+  @observable
+  int page = 1;
+
   @computed
   CharactersStatus get currentState => _state;
 
@@ -43,5 +46,18 @@ abstract class _CharactersControllerBase with Store {
     _state = CharactersStatus.loading;
     response = await _networkService.prevPage(url);
     _state = CharactersStatus.ready;
+  }
+
+  @action
+  void increment() {
+    page++;
+    if (page >= 43) {
+      page = 1;
+    }
+  }
+
+  @action
+  void decrement() {
+    page--;
   }
 }

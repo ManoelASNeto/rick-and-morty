@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:rick_and_morty_mobx/views/characters/widgets/custom_button.dart';
 
 import '../../../controllers/characters/characters_controller.dart';
 import '../../../injection_container.dart';
@@ -32,9 +34,7 @@ class _HomeViewState extends State<HomeView> {
           switch (currentState) {
             case CharactersStatus.initial:
             case CharactersStatus.loading:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return _load();
             case CharactersStatus.ready:
               return _person();
           }
@@ -51,11 +51,11 @@ class _HomeViewState extends State<HomeView> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                'images/background.jpeg',
-              ),
-              fit: BoxFit.fill,
-              opacity: 0.8),
+            image: AssetImage(
+              'assets/images/background.jpeg',
+            ),
+            fit: BoxFit.fill,
+          ),
         ),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -84,46 +84,56 @@ class _HomeViewState extends State<HomeView> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Visibility(
                       visible: char?.info?.prev != null,
-                      child: TextButton(
-                        onPressed: () {
+                      child: CustomButton(
+                        iconMDI:
+                            const Icon(MdiIcons.arrowLeftBoldCircleOutline),
+                        onTap: () {
                           _charactersController.prevPage(char?.info?.prev);
+                          _charactersController.decrement();
                         },
-                        child: const Text(
-                          'Anterior',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                          ),
-                        ),
+                        text: 'Anterior',
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
+                    Text(
+                      '${_charactersController.page} | ${char?.info?.pages}',
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    CustomButton(
+                      iconMDI: const Icon(MdiIcons.arrowRightBoldCircleOutline),
+                      onTap: () {
                         _charactersController.nextPage(char?.info?.next);
+                        _charactersController.increment();
                       },
-                      child: const Text(
-                        'Proxima',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                        ),
-                      ),
+                      text: 'Proximo',
                     ),
                   ],
                 ),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _load() {
+    var size = MediaQuery.of(context).size;
+    return Container(
+      width: size.width,
+      height: size.height,
+      color: Colors.black,
+      child: Center(
+        child: Image.asset(
+          'assets/images/logo.png',
+          width: MediaQuery.of(context).size.width,
+          height: 100,
         ),
       ),
     );
