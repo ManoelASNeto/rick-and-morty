@@ -21,11 +21,14 @@ class CustomInkwell extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Flexible(
-            child: Image.network(
-              image,
-              width: 100,
-              height: 100,
-              fit: BoxFit.fill,
+            child: GestureDetector(
+              onTap: onTap,
+              child: Image.network(
+                image,
+                width: 100,
+                height: 100,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Text(

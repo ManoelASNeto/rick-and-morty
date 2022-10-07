@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
-import 'package:rick_and_morty_mobx/components/network_service.dart';
-import 'package:rick_and_morty_mobx/models/response_model.dart';
+
+import '../../components/network_service.dart';
+import '../../models/response_model.dart';
 
 part 'characters_controller.g.dart';
 

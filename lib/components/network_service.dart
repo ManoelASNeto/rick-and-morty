@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import 'package:rick_and_morty_mobx/models/response_model.dart';
+
+import '../models/response_model.dart';
 
 class NetworkService {
   final client = http.Client();

@@ -1,3 +1,6 @@
+import 'package:rick_and_morty_mobx/models/location.dart';
+import 'package:rick_and_morty_mobx/models/origin.dart';
+
 class Characters {
   int? id;
   String? name;
@@ -8,6 +11,8 @@ class Characters {
   String? image;
   String? url;
   String? created;
+  Origin? origin;
+  Location? location;
 
   Characters({
     this.id,
@@ -19,6 +24,8 @@ class Characters {
     this.image,
     this.url,
     this.created,
+    this.origin,
+    this.location,
   });
 
   factory Characters.fromJson(Map<String, dynamic> json) => Characters(
@@ -31,5 +38,7 @@ class Characters {
         image: json['image'],
         url: json['url'],
         created: json['created'],
+        origin: Origin.fromJson(json['origin']),
+        location: Location.fromJson(json['location']),
       );
 }

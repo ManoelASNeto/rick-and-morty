@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:rick_and_morty_mobx/views/characters/widgets/custom_button.dart';
+import 'package:rick_and_morty_mobx/views/characters/layouts/datails_character.dart';
 
 import '../../../controllers/characters/characters_controller.dart';
 import '../../../injection_container.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/custom_inkwell.dart';
 
 class HomeView extends StatefulWidget {
@@ -64,25 +65,40 @@ class _HomeViewState extends State<HomeView> {
               const SizedBox(
                 height: 40,
               ),
-              Observer(
-                builder: (_) => GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemCount: char?.results?.length,
-                  itemBuilder: (_, index) {
-                    final list = char?.results?[index];
-                    return CustomInkwell(
+              GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemCount: char?.results?.length,
+                itemBuilder: (_, index) {
+                  final list = char?.results?[index];
+                  return Hero(
+                    tag: index.toString(),
+                    child: CustomInkwell(
                       image: list?.image ??
                           'https://triunfo.pe.gov.br/pm_tr430/wp-content/uploads/2018/03/sem-foto.jpg',
                       name: list?.name ?? 'Sem nome',
                       id: list?.id ?? 0,
-                      onTap: () {},
-                    );
-                  },
-                ),
+                      onTap: () {
+                        Navigator.of(_).push(
+                          MaterialPageRoute(
+                            builder: (_) => DetailsCharacter(
+                              image: list?.image,
+                              id: list?.id,
+                              name: list?.name,
+                              status: list?.status,
+                              gender: list?.gender,
+                              origin: list?.origin?.name ?? 'Desconhecido',
+                              location: list?.location?.name,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
@@ -129,12 +145,23 @@ class _HomeViewState extends State<HomeView> {
       width: size.width,
       height: size.height,
       color: Colors.black,
-      child: Center(
-        child: Image.asset(
-          'assets/images/logo.png',
-          width: MediaQuery.of(context).size.width,
-          height: 100,
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: MediaQuery.of(context).size.width,
+              height: 100,
+            ),
+          ),
+          const SizedBox(
+            height: 55,
+          ),
+          const CircularProgressIndicator(
+            color: Colors.green,
+          ),
+        ],
       ),
     );
   }
